@@ -17,7 +17,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
 
   private ApiInfo swaggerInfo() {
-    return new ApiInfoBuilder().title("SPRIOS API").description("SPRIOS API Docs").build();
+    return new ApiInfoBuilder().title("BARBELTEAM-Member-Server").description("Member API Docs").build();
   }
 
   @Bean
