@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Document(collection = "members")
+@Document(collection = "keywords")
 public class Keyword {
   @Id
   private String keyword;
