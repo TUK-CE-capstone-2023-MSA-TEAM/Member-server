@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberService {
   private final MemberRepository memberRepository;
 
@@ -23,5 +23,18 @@ public class MemberService {
 
   public List<Member> findAll() {
     return memberRepository.findAll();
+  }
+
+  public void deleteMemberByEmail(String email) {
+    memberRepository.deleteByEmail(email);
+  }
+
+  public Boolean isDuplicatedEmail(String email) {
+    try {
+      findMemberByEmail(email);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }
