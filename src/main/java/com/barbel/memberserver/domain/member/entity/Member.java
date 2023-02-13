@@ -7,8 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Getter
-@ToString
+@Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(collection = "members")
 public class Member extends BaseDocument {
