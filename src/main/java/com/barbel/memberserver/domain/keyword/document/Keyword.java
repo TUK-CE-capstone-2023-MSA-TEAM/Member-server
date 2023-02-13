@@ -12,10 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "keywords")
 public class Keyword {
   @Id
-  private String keyword;
+  private String word;
 
   @Builder
   public Keyword(String keyword) {
-    this.keyword = keyword;
+    this.word = word;
   }
 }

@@ -12,12 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "roles")
 public class Role {
   @Id
-  private String role;
+  private String name;
   private String description;
 
   @Builder
-  public Role(String role, String description) {
-    this.role = role;
+  public Role(String name, String description) {
+    this.name = name;
     this.description = description;
   }
 }
