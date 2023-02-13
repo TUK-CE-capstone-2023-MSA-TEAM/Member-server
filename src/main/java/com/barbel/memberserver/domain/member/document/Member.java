@@ -1,6 +1,6 @@
-package com.barbel.memberserver.domain.member.entity;
+package com.barbel.memberserver.domain.member.document;
 
-import com.barbel.memberserver.global.entity.BaseDocument;
+import com.barbel.memberserver.global.document.BaseDocument;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

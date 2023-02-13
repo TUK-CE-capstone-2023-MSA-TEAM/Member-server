@@ -1,7 +1,7 @@
 package com.barbel.memberserver.global.utill;
 
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
-import com.barbel.memberserver.domain.member.entity.Member;
+import com.barbel.memberserver.domain.member.document.Member;
 
 public class MemberRegistrationDTOMapper {
   //MemberRegistrationRequest -> Member

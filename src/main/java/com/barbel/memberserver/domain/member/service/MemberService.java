@@ -1,6 +1,6 @@
 package com.barbel.memberserver.domain.member.service;
 
-import com.barbel.memberserver.domain.member.entity.Member;
+import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.repository.MemberRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

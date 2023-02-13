@@ -1,7 +1,7 @@
 package com.barbel.memberserver.global.utill;
 
 import com.barbel.memberserver.domain.member.dto.MemberUpdateRequest;
-import com.barbel.memberserver.domain.member.entity.Member;
+import com.barbel.memberserver.domain.member.document.Member;
 
 public class MemberUpdateDTOMapper {
   public static Member memberUpdateRequestToMember(MemberUpdateRequest memberUpdateRequest, Member member) {

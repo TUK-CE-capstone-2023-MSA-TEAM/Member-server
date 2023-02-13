@@ -5,7 +5,7 @@ import static com.barbel.memberserver.domain.member.controller.MemberController.
 
 import com.barbel.memberserver.domain.member.dto.MemberLoginRequest;
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
-import com.barbel.memberserver.domain.member.entity.Member;
+import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.service.MemberService;
 import com.barbel.memberserver.global.utill.MemberRegistrationDTOMapper;
 import lombok.AccessLevel;

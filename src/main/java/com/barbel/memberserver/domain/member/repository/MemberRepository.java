@@ -1,6 +1,6 @@
 package com.barbel.memberserver.domain.member.repository;
 
-import com.barbel.memberserver.domain.member.entity.Member;
+import com.barbel.memberserver.domain.member.document.Member;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
