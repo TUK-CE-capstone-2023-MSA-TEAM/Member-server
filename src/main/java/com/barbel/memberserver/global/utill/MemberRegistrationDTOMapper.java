@@ -16,6 +16,7 @@ public class MemberRegistrationDTOMapper {
         .phone(memberRegistrationRequest.getPhone())
         .nickname(memberRegistrationRequest.getNickname())
         .sex(memberRegistrationRequest.getGender())
+        .introduce(memberRegistrationRequest.getIntroduce())
         .interests(memberRegistrationRequest.getInterests())
         .majors(memberRegistrationRequest.getMajors())
         .role(memberRegistrationRequest.getRole())
