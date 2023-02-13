@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KeywordRepository extends MongoRepository<Keyword, String> {
+  void deleteByWord(String word);
 }
