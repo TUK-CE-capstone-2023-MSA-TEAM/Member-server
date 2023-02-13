@@ -21,6 +21,7 @@ public class Member extends BaseDocument {
   private String addressDetail;
   private String sex;
   private String phone;
+  private String introduce;
   private List<String> interests;
   private List<String> majors;
   private String role;
@@ -35,6 +36,7 @@ public class Member extends BaseDocument {
       String addressDetail,
       String sex,
       String phone,
+      String introduce,
       List<String> interests,
       List<String> majors,
       String role) {
@@ -47,6 +49,7 @@ public class Member extends BaseDocument {
     this.addressDetail = addressDetail;
     this.sex = sex;
     this.phone = phone;
+    this.introduce = introduce;
     this.interests = interests;
     this.majors = majors;
     this.role = role;
