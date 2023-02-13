@@ -55,7 +55,18 @@ public class MemberController {
   }
 
   @GetMapping("/duplicated/{email}")
-  public String isDuplicatedEmail(@PathVariable String email) {
-    return "이메일 중복 조회";
+  public Boolean isDuplicatedEmail(@PathVariable String email) {
+    if(memberService.isDuplicatedEmail(email)) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  @GetMapping("/delete/{email}")
+  public String deleteMember(@PathVariable String email) {
+    memberService.deleteMemberByEmail(email);
+    return "삭제 완료";
   }
 }
