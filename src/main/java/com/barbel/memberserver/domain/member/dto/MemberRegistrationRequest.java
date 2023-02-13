@@ -1,13 +1,15 @@
 package com.barbel.memberserver.domain.member.dto;
 
-import com.barbel.memberserver.domain.member.entity.Gender;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import lombok.*;
 
+import java.util.List;
+
 
 @Getter
 @Builder
+@ToString
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberRegistrationRequest {
@@ -24,12 +26,13 @@ public class MemberRegistrationRequest {
   private String nickname;
   private int age;
   private String address;
-  private Gender gender;
+  private String addressDetail;
+  private String gender;
   private String phone;
   private String introduce;
 
   //FK
-  private Long major;
-  private Long interest;
-  private Long user_role;
+  private List<String> majors;
+  private List<String> interests;
+  private String role;
 }

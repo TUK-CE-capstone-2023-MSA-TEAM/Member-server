@@ -3,6 +3,8 @@ package com.barbel.memberserver.domain.member.dto;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -10,12 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberUpdateRequest {
   private String nickname;
   private String address;
-  private String phone;
+  private String addressDetail;
   private String introduce;
-  private MultipartFile profileImage; // 프로필 이미지
-
-  //FK
-  private Long major;
-  private Long interest;
-  private Long user_role;
+  private List<String> majors;
+  private List<String> interests;
+  private String role;
 }

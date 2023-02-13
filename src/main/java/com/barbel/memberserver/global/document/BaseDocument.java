@@ -1,4 +1,4 @@
-package com.barbel.memberserver.global.entity;
+package com.barbel.memberserver.global.document;
 
 import lombok.AccessLevel;
 import lombok.Data;
