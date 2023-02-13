@@ -1,6 +1,7 @@
 package com.barbel.memberserver.domain.role.controller;
 
 import com.barbel.memberserver.domain.role.document.Role;
+import com.barbel.memberserver.domain.role.dto.RoleDeleteRequest;
 import com.barbel.memberserver.domain.role.service.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class RoleController {
   }
 
   @PostMapping("/delete")
-  public String deleteRole(@RequestBody Role role) {
-    if(roleService.deleteRole(role)) {
+  public String deleteRole(@RequestBody RoleDeleteRequest roleDeleteRequest) {
+    if(roleService.deleteRole(roleDeleteRequest)) {
       return "역할 삭제 완료";
     } else {
       return "역할 삭제 실패";

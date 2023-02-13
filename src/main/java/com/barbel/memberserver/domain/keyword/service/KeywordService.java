@@ -1,6 +1,7 @@
 package com.barbel.memberserver.domain.keyword.service;
 
 import com.barbel.memberserver.domain.keyword.document.Keyword;
+import com.barbel.memberserver.domain.keyword.dto.KeywordDeleteRequest;
 import com.barbel.memberserver.domain.keyword.repository.KeywordRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,10 @@ public class KeywordService {
     }
   }
 
-  public boolean deleteKeyword(Keyword keyword) {
+  public boolean deleteKeyword(KeywordDeleteRequest keywordDeleteRequest) {
+    String keywordName = keywordDeleteRequest.getKeyword();
     try{
-      keywordRepository.delete(keyword);
+      keywordRepository.deleteByWord(keywordName);
       return true;
     } catch (Exception e) {
       return false;

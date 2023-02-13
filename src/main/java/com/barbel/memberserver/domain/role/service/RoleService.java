@@ -1,6 +1,7 @@
 package com.barbel.memberserver.domain.role.service;
 
 import com.barbel.memberserver.domain.role.document.Role;
+import com.barbel.memberserver.domain.role.dto.RoleDeleteRequest;
 import com.barbel.memberserver.domain.role.repository.RoleRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +23,15 @@ public class RoleService {
     }
   }
 
-  public boolean deleteRole(Role role) {
+  public boolean deleteRole(RoleDeleteRequest roleDeleteRequest) {
+    String roleName = roleDeleteRequest.getRole();
     try{
-      roleRepository.delete(role);
+      roleRepository.deleteByName(roleName);
       return true;
     } catch (Exception e) {
       return false;
     }
+
   }
 
   public List<Role> findAll() {

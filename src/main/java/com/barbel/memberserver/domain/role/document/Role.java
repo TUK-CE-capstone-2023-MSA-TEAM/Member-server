@@ -1,5 +1,6 @@
 package com.barbel.memberserver.domain.role.document;
 
+import com.barbel.memberserver.global.document.BaseDocument;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +11,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(collection = "roles")
-public class Role {
+public class Role extends BaseDocument {
   @Id
-  private String role;
+  private String name;
   private String description;
 
   @Builder
-  public Role(String role, String description) {
-    this.role = role;
+  public Role(String name, String description) {
+    this.name = name;
     this.description = description;
   }
 }
