@@ -1,6 +1,7 @@
 package com.barbel.memberserver.domain.keyword.controller;
 
 import com.barbel.memberserver.domain.keyword.document.Keyword;
+import com.barbel.memberserver.domain.keyword.dto.KeywordDeleteRequest;
 import com.barbel.memberserver.domain.keyword.service.KeywordService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +37,8 @@ public class KeywordController {
   }
 
   @PostMapping("/delete")
-  public String deleteKeyword(@RequestBody Keyword keyword) {
-    if(keywordService.deleteKeyword(keyword)) {
+  public String deleteKeyword(@RequestBody KeywordDeleteRequest keywordDeleteRequest) {
+    if(keywordService.deleteKeyword(keywordDeleteRequest)) {
       return "키워드 삭제 완료";
     } else {
       return "키워드 삭제 실패";
