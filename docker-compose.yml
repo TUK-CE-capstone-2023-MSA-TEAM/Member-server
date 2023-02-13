@@ -6,7 +6,7 @@ services:
     restart: always
     container_name: mongoDB
     ports:
-      - 27017:27017
+      - "27017:27017"
     env_file: .env
     environment:
       TZ: Asia/Seoul
