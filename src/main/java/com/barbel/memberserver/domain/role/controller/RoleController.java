@@ -2,6 +2,7 @@ package com.barbel.memberserver.domain.role.controller;
 
 import com.barbel.memberserver.domain.role.document.Role;
 import com.barbel.memberserver.domain.role.dto.RoleDeleteRequest;
+import com.barbel.memberserver.domain.role.dto.RoleRegistrationRequest;
 import com.barbel.memberserver.domain.role.service.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class RoleController {
   private final RoleService roleService;
 
   @PostMapping("/add")
-  public String addRole(@RequestBody Role role) {
-    if(roleService.saveRole(role)) {
+  public String addRole(@RequestBody RoleRegistrationRequest roleRegistrationRequest) {
+    if(roleService.saveRole(roleRegistrationRequest)) {
       return "역할 추가 완료";
     } else {
       return "역할 추가 실패";

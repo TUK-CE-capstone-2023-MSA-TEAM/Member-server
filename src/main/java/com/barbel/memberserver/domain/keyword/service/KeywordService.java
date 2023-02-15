@@ -2,6 +2,7 @@ package com.barbel.memberserver.domain.keyword.service;
 
 import com.barbel.memberserver.domain.keyword.document.Keyword;
 import com.barbel.memberserver.domain.keyword.dto.KeywordDeleteRequest;
+import com.barbel.memberserver.domain.keyword.dto.KeywordRegistrationRequest;
 import com.barbel.memberserver.domain.keyword.repository.KeywordRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,12 @@ import java.util.List;
 public class KeywordService {
   private final KeywordRepository keywordRepository;
 
-  public boolean saveKeyword(Keyword keyword) {
+  public boolean saveKeyword(KeywordRegistrationRequest keywordRegistrationRequest) {
+
+    Keyword keyword = Keyword.builder()
+            .keyword(keywordRegistrationRequest.getKeyword())
+            .build();
+
     try{
       keywordRepository.save(keyword);
       return true;
