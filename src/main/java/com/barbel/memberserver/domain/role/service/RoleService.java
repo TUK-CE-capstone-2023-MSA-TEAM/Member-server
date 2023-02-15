@@ -2,6 +2,7 @@ package com.barbel.memberserver.domain.role.service;
 
 import com.barbel.memberserver.domain.role.document.Role;
 import com.barbel.memberserver.domain.role.dto.RoleDeleteRequest;
+import com.barbel.memberserver.domain.role.dto.RoleRegistrationRequest;
 import com.barbel.memberserver.domain.role.repository.RoleRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,11 @@ import java.util.List;
 public class RoleService {
   private final RoleRepository roleRepository;
 
-  public boolean saveRole(Role role) {
+  public boolean saveRole(RoleRegistrationRequest roleRegistrationRequest) {
+    Role role = Role.builder()
+            .name(roleRegistrationRequest.getName())
+            .description(roleRegistrationRequest.getDescription())
+            .build();
     try{
       roleRepository.save(role);
       return true;
