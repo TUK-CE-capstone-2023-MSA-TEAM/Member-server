@@ -4,6 +4,7 @@ import com.barbel.memberserver.domain.keyword.document.Keyword;
 import com.barbel.memberserver.domain.keyword.dto.KeywordDeleteRequest;
 import com.barbel.memberserver.domain.keyword.dto.KeywordRegistrationRequest;
 import com.barbel.memberserver.domain.keyword.repository.KeywordRepository;
+import com.barbel.memberserver.global.utill.KeywordUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,7 @@ public class KeywordService {
   private final KeywordRepository keywordRepository;
 
   public boolean saveKeyword(KeywordRegistrationRequest keywordRegistrationRequest) {
-
-    Keyword keyword = Keyword.builder()
-            .keyword(keywordRegistrationRequest.getKeyword())
-            .build();
+    Keyword keyword = KeywordUtil.keywordRegistrationRequestToKeyword(keywordRegistrationRequest);
 
     try{
       keywordRepository.save(keyword);
