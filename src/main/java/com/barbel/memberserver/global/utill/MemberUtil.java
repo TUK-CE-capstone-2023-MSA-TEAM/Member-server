@@ -4,8 +4,7 @@ import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
 import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.dto.MemberUpdateRequest;
 
-public class MemberRegistrationDTOMapper {
-  //MemberRegistrationRequest -> Member
+public class MemberUtil {
   public static Member memberRegistrationRequestToMember(MemberRegistrationRequest memberRegistrationRequest) {
     return Member.builder()
         .email(memberRegistrationRequest.getEmail())
