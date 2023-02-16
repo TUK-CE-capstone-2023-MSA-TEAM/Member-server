@@ -6,7 +6,7 @@ import com.barbel.memberserver.domain.member.dto.MemberUpdateRequest;
 
 public class MemberRegistrationDTOMapper {
   //MemberRegistrationRequest -> Member
-  public static Member toMember(MemberRegistrationRequest memberRegistrationRequest) {
+  public static Member memberRegistrationRequestToMember(MemberRegistrationRequest memberRegistrationRequest) {
     return Member.builder()
         .email(memberRegistrationRequest.getEmail())
         .password(memberRegistrationRequest.getPassword())
