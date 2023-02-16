@@ -2,6 +2,7 @@ package com.barbel.memberserver.global.utill;
 
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
 import com.barbel.memberserver.domain.member.document.Member;
+import com.barbel.memberserver.domain.member.dto.MemberUpdateRequest;
 
 public class MemberRegistrationDTOMapper {
   //MemberRegistrationRequest -> Member
@@ -21,5 +22,16 @@ public class MemberRegistrationDTOMapper {
         .majors(memberRegistrationRequest.getMajors())
         .role(memberRegistrationRequest.getRole())
         .build();
+  }
+
+  public static Member memberUpdateRequestToMember(MemberUpdateRequest memberUpdateRequest, Member member) {
+    member.setNickname(memberUpdateRequest.getNickname());
+    member.setAddress(memberUpdateRequest.getAddress());
+    member.setAddressDetail(memberUpdateRequest.getAddressDetail());
+    member.setIntroduce(memberUpdateRequest.getIntroduce());
+    member.setMajors(memberUpdateRequest.getMajors());
+    member.setInterests(memberUpdateRequest.getInterests());
+    member.setRole(memberUpdateRequest.getRole());
+    return member;
   }
 }
