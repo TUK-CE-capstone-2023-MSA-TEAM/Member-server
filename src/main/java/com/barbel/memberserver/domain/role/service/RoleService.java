@@ -4,6 +4,7 @@ import com.barbel.memberserver.domain.role.document.Role;
 import com.barbel.memberserver.domain.role.dto.RoleDeleteRequest;
 import com.barbel.memberserver.domain.role.dto.RoleRegistrationRequest;
 import com.barbel.memberserver.domain.role.repository.RoleRepository;
+import com.barbel.memberserver.global.utill.RoleUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,8 @@ public class RoleService {
   private final RoleRepository roleRepository;
 
   public boolean saveRole(RoleRegistrationRequest roleRegistrationRequest) {
-    Role role = Role.builder()
-            .name(roleRegistrationRequest.getName())
-            .description(roleRegistrationRequest.getDescription())
-            .build();
+    Role role = RoleUtil.roleRegistrationRequestToRole(roleRegistrationRequest);
+
     try{
       roleRepository.save(role);
       return true;
