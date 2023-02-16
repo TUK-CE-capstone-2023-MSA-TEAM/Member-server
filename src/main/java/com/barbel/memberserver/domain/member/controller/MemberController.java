@@ -7,7 +7,7 @@ import com.barbel.memberserver.domain.member.dto.MemberLoginRequest;
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
 import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.service.MemberService;
-import com.barbel.memberserver.global.utill.MemberRegistrationDTOMapper;
+import com.barbel.memberserver.global.utill.MemberUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class MemberController {
   @PostMapping("/signup")
   public String registration(@RequestBody MemberRegistrationRequest memberRegistrationRequest) {
     log.info(memberRegistrationRequest.toString());
-    Member member = MemberRegistrationDTOMapper.toMember(memberRegistrationRequest);
+    Member member = MemberUtil.memberRegistrationRequestToMember(memberRegistrationRequest);
     memberService.saveMember(member);
     return "가입 완료";
   }
