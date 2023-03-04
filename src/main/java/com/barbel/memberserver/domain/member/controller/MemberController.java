@@ -33,13 +33,13 @@ public class MemberController {
     log.info(memberRegistrationRequest.toString());
     Member member = MemberUtil.memberRegistrationRequestToMember(memberRegistrationRequest);
     memberService.saveMember(member);
-    return "가입 완료";
+    return "Registration Success";
   }
 
   @PostMapping("/signin")
   public String Login(@RequestBody MemberLoginRequest memberLoginRequest) {
     log.info(memberLoginRequest.toString());
-    return "로그인 완료";
+    return "Login Success";
   }
 
   @GetMapping("/logout")
