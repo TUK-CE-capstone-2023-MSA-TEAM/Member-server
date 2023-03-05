@@ -25,6 +25,9 @@ public class Member extends BaseDocument {
   private List<String> interests;
   private List<String> majors;
   private String role;
+
+  //TODO: 이미지 업로드 된 스토리지 URL 주소 담을 필드 필요.
+
   @Builder
   public Member(
       String email,
