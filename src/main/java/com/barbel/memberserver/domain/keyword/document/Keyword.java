@@ -16,7 +16,7 @@ public class Keyword extends BaseDocument {
   private String word;
 
   @Builder
-  public Keyword(String keyword) {
+  public Keyword(String word) {
     this.word = word;
   }
 }
