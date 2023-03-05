@@ -1,4 +1,14 @@
 package com.barbel.memberserver.global.error.exception;
 
-public class BusinessException {
+import com.barbel.memberserver.global.error.ErrorCode;
+import lombok.Getter;
+
+@Getter
+public class BusinessException extends RuntimeException{
+  private final ErrorCode errorCode;
+
+  public BusinessException(ErrorCode errorCode) {
+    super(errorCode.getMessage());
+    this.errorCode = errorCode;
+  }
 }
