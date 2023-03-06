@@ -1,6 +1,9 @@
 package com.barbel.memberserver.domain.member.service;
 
 import com.barbel.memberserver.domain.member.document.Member;
+import com.barbel.memberserver.domain.member.exception.EmailDuplicatedException;
+import com.barbel.memberserver.domain.member.exception.MemberListRequestFailedException;
+import com.barbel.memberserver.domain.member.exception.MemberNotFountException;
 import com.barbel.memberserver.domain.member.repository.MemberRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -14,27 +17,32 @@ public class MemberService {
   private final MemberRepository memberRepository;
 
   public void saveMember(Member member) {
+    if (isDuplicatedEmail(member.getEmail())) {
+      throw new EmailDuplicatedException();
+    }
     memberRepository.save(member);
   }
 
   public Member findMemberByEmail(String email) {
-    return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+    return memberRepository.findByEmail(email).orElseThrow(() -> new MemberNotFountException());
   }
 
   public List<Member> findAll() {
-    return memberRepository.findAll();
+    try {
+      return memberRepository.findAll();
+    } catch (Exception e) {
+      throw new MemberListRequestFailedException();
+    }
   }
 
   public void deleteMemberByEmail(String email) {
+    if(!isDuplicatedEmail(email)) {
+      throw new MemberNotFountException();
+    }
     memberRepository.deleteByEmail(email);
   }
 
   public Boolean isDuplicatedEmail(String email) {
-    try {
-      findMemberByEmail(email);
-      return true;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
+    return memberRepository.existsById(email);
   }
 }

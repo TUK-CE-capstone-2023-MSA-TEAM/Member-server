@@ -3,15 +3,24 @@ package com.barbel.memberserver.domain.keyword.controller;
 import com.barbel.memberserver.domain.keyword.document.Keyword;
 import com.barbel.memberserver.domain.keyword.dto.KeywordDeleteRequest;
 import com.barbel.memberserver.domain.keyword.dto.KeywordRegistrationRequest;
+import com.barbel.memberserver.domain.keyword.dto.KeywordUpdateRequest;
+import com.barbel.memberserver.domain.keyword.exception.KeywordDeleteFailedException;
+import com.barbel.memberserver.domain.keyword.exception.KeywordDuplicatedException;
 import com.barbel.memberserver.domain.keyword.service.KeywordService;
+import com.barbel.memberserver.global.result.ResultResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static com.barbel.memberserver.domain.keyword.controller.KeywordController.MEMBER_API_URI;
+import static com.barbel.memberserver.global.result.ResultCode.KEYWORD_DELETE_SUCCESS;
+import static com.barbel.memberserver.global.result.ResultCode.KEYWORD_LIST_REQUEST_SUCCESS;
+import static com.barbel.memberserver.global.result.ResultCode.KEYWORD_REGISTRATION_SUCCESS;
+import static com.barbel.memberserver.global.result.ResultCode.KEYWORD_UPDATE_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,27 +31,38 @@ public class KeywordController {
   private final KeywordService keywordService;
 
   @GetMapping("/list")
-  public List<Keyword> getKeywordList() {
+  public ResponseEntity<ResultResponse> getKeywordList() {
+    //TODO: 로그인 된 회원만 키워드 리스트를 볼 수 있도록 구현해야함.
+
     List<Keyword> keywordList = keywordService.findAll();
-    log.info(keywordList.toString());
-    return keywordList;
+    return ResponseEntity.ok(ResultResponse.of(KEYWORD_LIST_REQUEST_SUCCESS, keywordList));
   }
 
   @PostMapping("/add")
-  public String addKeyword(@RequestBody KeywordRegistrationRequest keywordRegistrationRequest) {
-    if(keywordService.saveKeyword(keywordRegistrationRequest)) {
-      return "키워드 추가 완료";
-    } else {
-      return "키워드 추가 실패";
+  public ResponseEntity<ResultResponse> addKeyword(@RequestBody KeywordRegistrationRequest keywordRegistrationRequest) {
+    //TODO: 키워드 등록 어드민 권한 있는 회원만 가능하도록 구현해야함.
+
+    if(keywordService.isDuplicatedKeyword(keywordRegistrationRequest.getKeyword())) {
+      throw new KeywordDuplicatedException();
     }
+    keywordService.saveKeyword(keywordRegistrationRequest);
+    return ResponseEntity.ok(ResultResponse.of(KEYWORD_REGISTRATION_SUCCESS));
   }
 
   @PostMapping("/delete")
-  public String deleteKeyword(@RequestBody KeywordDeleteRequest keywordDeleteRequest) {
-    if(keywordService.deleteKeyword(keywordDeleteRequest)) {
-      return "키워드 삭제 완료";
+  public ResponseEntity<ResultResponse> deleteKeyword(@RequestBody KeywordDeleteRequest keywordDeleteRequest) {
+    //TODO: 키워드 삭제 어드민 권한 있는 회원만 가능하도록 구현해야함.
+
+    if (keywordService.deleteKeyword(keywordDeleteRequest)) {
+      return ResponseEntity.ok(ResultResponse.of(KEYWORD_DELETE_SUCCESS));
     } else {
-      return "키워드 삭제 실패";
+      throw new KeywordDeleteFailedException();
     }
+  }
+
+  @PostMapping("/update")
+  public ResponseEntity<ResultResponse> updateKeyword(@RequestBody KeywordUpdateRequest keywordUpdateRequest) {
+    keywordService.updateKeyword(keywordUpdateRequest);
+    return ResponseEntity.ok(ResultResponse.of(KEYWORD_UPDATE_SUCCESS));
   }
 }

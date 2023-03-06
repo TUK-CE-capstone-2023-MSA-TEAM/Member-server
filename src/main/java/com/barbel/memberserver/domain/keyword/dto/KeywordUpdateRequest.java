@@ -1,4 +1,4 @@
-package com.barbel.memberserver.domain.role.dto;
+package com.barbel.memberserver.domain.keyword.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RoleRegistrationRequest {
-    private String name;
-    private String description;
+public class KeywordUpdateRequest {
+  private String keywordPre;
+  private String keywordPost;
+
 }

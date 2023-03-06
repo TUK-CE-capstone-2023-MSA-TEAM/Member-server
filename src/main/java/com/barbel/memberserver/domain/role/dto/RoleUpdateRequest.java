@@ -12,7 +12,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RoleRegistrationRequest {
-    private String name;
-    private String description;
+public class RoleUpdateRequest {
+  private String rolePre;
+  private String rolePost;
+  private String description;
 }

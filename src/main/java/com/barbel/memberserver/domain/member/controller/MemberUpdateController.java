@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(MEMBER_API_URI)
 @Slf4j
 public class MemberUpdateController {
+
+  //TODO: 회원 정보 수정 기능 구현.
   @PostMapping("/update/common")
   public String update(@RequestBody MemberUpdateRequest memberUpdateRequest) {
     log.info(memberUpdateRequest.toString());

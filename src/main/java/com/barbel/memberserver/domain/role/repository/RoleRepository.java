@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoleRepository extends MongoRepository<Role, String> {
-  void deleteByName(String name);
 }
