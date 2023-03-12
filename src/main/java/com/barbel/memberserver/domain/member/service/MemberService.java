@@ -16,13 +16,6 @@ import java.util.List;
 public class MemberService {
   private final MemberRepository memberRepository;
 
-  public void saveMember(Member member) {
-    if (isDuplicatedEmail(member.getEmail())) {
-      throw new EmailDuplicatedException();
-    }
-    memberRepository.save(member);
-  }
-
   public Member findMemberByEmail(String email) {
     return memberRepository.findByEmail(email).orElseThrow(() -> new MemberNotFountException());
   }
@@ -42,7 +35,7 @@ public class MemberService {
     memberRepository.deleteByEmail(email);
   }
 
-  public Boolean isDuplicatedEmail(String email) {
+  private Boolean isDuplicatedEmail(String email) {
     return memberRepository.existsById(email);
   }
 }

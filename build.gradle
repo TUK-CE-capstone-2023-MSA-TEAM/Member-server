@@ -23,9 +23,16 @@ ext {
 }
 
 dependencies {
+    //JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    //DB
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.mongodb:mongodb-driver-legacy:4.2.3'
-    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    //Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.7'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'

@@ -7,6 +7,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ResultCode {
 
+  // Global
+  TOKEN_REFRESH_SUCCESS("G001", "토큰 갱신 성공"),
+  TOKEN_VALIDATE_SUCCESS("G002", "토큰 유효성 검사 성공"),
+
   // Member
   MEMBER_REGISTRATION_SUCCESS("M001", "사용자 등록 성공"),
   MEMBER_ACCOUNT_NOT_DUPLICATED("M002", "회원 아이디 중복되지않음"),
@@ -18,11 +22,11 @@ public enum ResultCode {
   MEMBER_DELETE_SUCCESS("M008", "회원 삭제 성공"),
 
   // Role
-  ROLE_REGISTRATION_SUCCESS("R001", "권한 등록 성공"),
-  ROLE_UPDATE_SUCCESS("R002", "권한 수정 성공"),
-  ROLE_DELETE_SUCCESS("R003", "권한 삭제 성공"),
-  ROLE_FIND_SUCCESS("R004", "권한 조회 성공"),
-  ROLE_LIST_REQUEST_SUCCESS("R005", "권한 리스트 조회 성공"),
+  ROLE_REGISTRATION_SUCCESS("R001", "역할 등록 성공"),
+  ROLE_UPDATE_SUCCESS("R002", "역할 수정 성공"),
+  ROLE_DELETE_SUCCESS("R003", "역할 삭제 성공"),
+  ROLE_FIND_SUCCESS("R004", "역할 조회 성공"),
+  ROLE_LIST_REQUEST_SUCCESS("R005", "역할 리스트 조회 성공"),
 
   // keyword
   KEYWORD_REGISTRATION_SUCCESS("K001", "키워드 등록 성공"),

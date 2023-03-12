@@ -1,16 +1,20 @@
 package com.barbel.memberserver.domain.member.document;
 
 import com.barbel.memberserver.global.document.BaseDocument;
+import java.util.Collection;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(collection = "members")
-public class Member extends BaseDocument {
+public class Member extends BaseDocument implements UserDetails {
   @Id
   private String email;
   private String password;
@@ -56,5 +60,40 @@ public class Member extends BaseDocument {
     this.interests = interests;
     this.majors = majors;
     this.role = role;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(role));
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
   }
 }
