@@ -12,6 +12,7 @@ public enum ErrorCode {
   INTERNAL_SERVER_ERROR(500, "G002", "서버 내부 오류입니다."),
   FILE_CONVERT_ERROR(500, "G003", "파일 변환 오류입니다."),
   UN_AUTHORIZED_ACCESS(401, "G004", "권한이 없습니다."),
+  INVALID_TOKEN(401, "G005", "유효하지 않은 토큰입니다."),
 
   // Member
   MEMBER_NOT_FOUND(400, "M001", "사용자를 찾을 수 없습니다."),
