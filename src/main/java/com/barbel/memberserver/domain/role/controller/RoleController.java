@@ -22,13 +22,12 @@ import static com.barbel.memberserver.domain.role.controller.RoleController.MEMB
 @Slf4j
 @RequestMapping(MEMBER_API_URI)
 public class RoleController {
-  public static final String MEMBER_API_URI = "/api/role";
+  public static final String MEMBER_API_URI = "account/api/role";
   private final RoleService roleService;
 
   @PostMapping("/add")
-  // TODO: 어드민 권한이 있는 사람만 역할을 추가할 수 있도록 수정
-
   public ResponseEntity<ResultResponse> addRole(@RequestBody RoleRegistrationRequest roleRegistrationRequest) {
+    // TODO: 어드민 권한이 있는 사람만 역할을 추가할 수 있도록 수정
     roleService.saveRole(roleRegistrationRequest);
     return ResponseEntity.ok(ResultResponse.of(ResultCode.ROLE_REGISTRATION_SUCCESS));
   }
@@ -42,7 +41,6 @@ public class RoleController {
 
   @GetMapping("/list")
   public ResponseEntity<ResultResponse> getRoleList() {
-    // TODO: 로그인된 회원만 역할 목록을 볼 수 있도록 수정
     return ResponseEntity.ok(ResultResponse.of(ResultCode.ROLE_LIST_REQUEST_SUCCESS, roleService.findAll()));
   }
 

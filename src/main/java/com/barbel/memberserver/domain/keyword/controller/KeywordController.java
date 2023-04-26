@@ -27,7 +27,7 @@ import static com.barbel.memberserver.global.result.ResultCode.KEYWORD_UPDATE_SU
 @RequestMapping(MEMBER_API_URI)
 @Slf4j
 public class KeywordController {
-  public static final String MEMBER_API_URI = "/api/keyword";
+  public static final String MEMBER_API_URI = "account/api/keyword";
   private final KeywordService keywordService;
 
   @GetMapping("/list")

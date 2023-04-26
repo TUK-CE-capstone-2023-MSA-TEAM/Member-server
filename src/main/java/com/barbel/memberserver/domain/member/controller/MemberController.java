@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(MEMBER_API_URI)
 @Slf4j
 public class MemberController {
-  public static final String MEMBER_API_URI = "/api/member";
+  public static final String MEMBER_API_URI = "account/api/member";
   private final MemberService memberService;
 
   @GetMapping("/info/{email}")

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(MEMBER_API_URI)
 @Slf4j
 public class AuthController {
-  public static final String MEMBER_API_URI = "/api/auth";
+  public static final String MEMBER_API_URI = "account/api/auth";
   private final MemberService memberService;
   private final LoginService loginService;
 
