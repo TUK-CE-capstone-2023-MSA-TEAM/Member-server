@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
+
+import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +32,7 @@ import org.springframework.stereotype.Component;
 public class JwtTokenProvider {
   private final Key key;
   private final int ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 5;     // 5분
-  private final int REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60;   // 1시간
+  private final int REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 1;   // 1일
 
   public JwtTokenProvider(@Value("${jwt.secret.key}") String secret) {
     byte[] keyBytes = Decoders.BASE64.decode(secret);
@@ -87,7 +89,7 @@ public class JwtTokenProvider {
     try{
       Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
       return true;
-    } catch (SecurityException | MalformedJwtException e) {
+    } catch (SecurityException | MalformedJwtException | SignatureException e) {
       log.info("유효하지 않은 JWT 토큰입니다.", e);
     } catch (ExpiredJwtException e) {
       log.info("만료된 JWT 토큰입니다.", e);
