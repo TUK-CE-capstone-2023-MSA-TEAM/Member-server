@@ -2,6 +2,7 @@ package com.barbel.memberserver.domain.member.service;
 
 import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.dto.MemberLoginRequest;
+import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
 import com.barbel.memberserver.domain.member.exception.EmailDuplicatedException;
 import com.barbel.memberserver.domain.member.exception.MemberNotFountException;
 import com.barbel.memberserver.domain.member.repository.MemberRepository;
@@ -10,6 +11,7 @@ import com.barbel.memberserver.global.jwt.RefreshTokenRepository;
 import com.barbel.memberserver.global.jwt.document.RefreshToken;
 import com.barbel.memberserver.global.jwt.dto.TokenInfo;
 import com.barbel.memberserver.global.jwt.exception.InvalidTokenException;
+import com.barbel.memberserver.global.utill.MemberUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class LoginService {
   private final MemberRepository memberRepository;
@@ -26,10 +27,12 @@ public class LoginService {
   private final JwtTokenProvider jwtTokenProvider;
   private final RefreshTokenRepository refreshTokenRepository;
 
-  public void saveMember(Member member) {
-    if (isDuplicatedEmail(member.getEmail())) {
+  @Transactional
+  public void saveMember(MemberRegistrationRequest memberRegistrationRequest) {
+    if (isDuplicatedEmail(memberRegistrationRequest.getEmail())) {
       throw new EmailDuplicatedException();
     }
+    Member member = MemberUtil.memberRegistrationRequestToMember(memberRegistrationRequest);
     memberRepository.save(member);
   }
   @Transactional
