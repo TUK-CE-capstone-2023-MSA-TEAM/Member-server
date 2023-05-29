@@ -19,6 +19,7 @@ public enum ErrorCode {
   MEMBER_ACCOUNT_DUPLICATED(400, "M002", "회원 아이디 중복"),
   MEMBER_UPDATE_FAIL(400, "M003", "회원 프로필 업데이트 실패"),
   MEMBER_LIST_REQUEST_FAIL(500, "M004", "회원 리스트 요청 실패"),
+  MEMBER_PASSWORD_WRONG(401, "M005", "비밀번호가 틀렸습니다."),
 
   // Role
   ROLE_NOT_FOUND(400, "R001", "역할을 찾을 수 없습니다."),
