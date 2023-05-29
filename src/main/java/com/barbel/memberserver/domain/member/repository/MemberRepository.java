@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends MongoRepository<Member, String> {
   List<Member> findAll();
-  List<Member> findAllByMajorsContains(String interest);
-  List<Member> findAllByInterestsContains(String major);
+  List<Member> findAllByMajorsContainsAndRole(String interest, String role);
+  List<Member> findAllByInterestsContainsAndRole(String major, String role);
   Optional<Member> findByEmail(String email);
   void deleteByEmail(String email);
 }
