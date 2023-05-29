@@ -3,6 +3,8 @@ package com.barbel.memberserver.global.utill;
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
 import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.dto.MemberUpdateRequest;
+import com.barbel.memberserver.domain.member.dto.MenteeDetailResponse;
+import com.barbel.memberserver.domain.member.dto.MentorDetailResponse;
 
 public class MemberUtil {
   public static Member memberRegistrationRequestToMember(MemberRegistrationRequest memberRegistrationRequest) {
@@ -23,7 +25,7 @@ public class MemberUtil {
         .build();
   }
 
-  public static Member memberUpdateRequestToMember(MemberUpdateRequest memberUpdateRequest, Member member) {
+  public static void updateMember(MemberUpdateRequest memberUpdateRequest, Member member) {
     member.setNickname(memberUpdateRequest.getNickname());
     member.setAddress(memberUpdateRequest.getAddress());
     member.setAddressDetail(memberUpdateRequest.getAddressDetail());
@@ -31,6 +33,23 @@ public class MemberUtil {
     member.setMajors(memberUpdateRequest.getMajors());
     member.setInterests(memberUpdateRequest.getInterests());
     member.setRole(memberUpdateRequest.getRole());
-    return member;
+  }
+
+  public static MentorDetailResponse MemberToMentorDetailResponse(Member member) {
+    return MentorDetailResponse.builder()
+        .email(member.getEmail())
+        .nickname(member.getNickname())
+        .gender(member.getSex())
+        .profileImageURL(member.getProfileImageURL())
+        .age(member.getAge()).build();
+  }
+
+  public static MenteeDetailResponse MemberToMenteeDetailResponse(Member member) {
+    return MenteeDetailResponse.builder()
+        .email(member.getEmail())
+        .nickname(member.getNickname())
+        .gender(member.getSex())
+        .profileImageURL(member.getProfileImageURL())
+        .age(member.getAge()).build();
   }
 }
