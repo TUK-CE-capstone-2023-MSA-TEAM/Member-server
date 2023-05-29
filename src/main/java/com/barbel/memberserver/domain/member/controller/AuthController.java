@@ -41,8 +41,7 @@ public class AuthController {
   public ResponseEntity<ResultResponse> registration(
       @RequestBody @Valid MemberRegistrationRequest memberRegistrationRequest) {
     log.info(memberRegistrationRequest.toString());
-    Member member = MemberUtil.memberRegistrationRequestToMember(memberRegistrationRequest);
-    loginService.saveMember(member);
+    loginService.saveMember(memberRegistrationRequest);
     return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_REGISTRATION_SUCCESS));
   }
 
@@ -58,7 +57,11 @@ public class AuthController {
   @Operation(summary = "로그아웃")
   @GetMapping("/logout")
   public ResponseEntity<ResultResponse> Logout() {
-    //TODO: 로그아웃 처리 로직 구현
+    /**
+     * TODO: 로그아웃 처리 로직 구현
+     * Redis 에서 블랙리스트 토큰을 저장해야함
+     * https://velog.io/@joonghyun/SpringBoot-Jwt%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83
+     **/
     return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_LOGOUT_SUCCESS));
   }
 
