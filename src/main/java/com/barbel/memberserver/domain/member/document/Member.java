@@ -26,6 +26,7 @@ public class Member extends BaseDocument implements UserDetails {
   private String sex;
   private String phone;
   private String introduce;
+  private String profileImageURL;
   private List<String> interests;
   private List<String> majors;
   private String role;
@@ -60,6 +61,7 @@ public class Member extends BaseDocument implements UserDetails {
     this.interests = interests;
     this.majors = majors;
     this.role = role;
+    this.profileImageURL = "https://identitylessimgserver.s3.ap-northeast-2.amazonaws.com/member/base_profile.png";
   }
 
   @Override
