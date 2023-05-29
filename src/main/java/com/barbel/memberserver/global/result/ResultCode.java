@@ -20,6 +20,8 @@ public enum ResultCode {
   MEMBER_FIND_SUCCESS("M006", "회원 조회 성공"),
   MEMBER_LIST_REQUEST_SUCCESS("M007", "회원 리스트 조회 성공"),
   MEMBER_DELETE_SUCCESS("M008", "회원 삭제 성공"),
+  MEMBER_PASSWORD_UPDATE_SUCCESS("M009", "회원 비밀번호 업데이트 성공"),
+  MEMBER_PROFILE_IMAGE_UPDATE_SUCCESS("M010", "회원 프로필 이미지 업데이트 성공"),
 
   // Role
   ROLE_REGISTRATION_SUCCESS("R001", "역할 등록 성공"),
