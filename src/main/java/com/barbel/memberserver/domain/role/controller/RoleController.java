@@ -26,7 +26,8 @@ public class RoleController {
   private final RoleService roleService;
 
   @PostMapping("/add")
-  public ResponseEntity<ResultResponse> addRole(@RequestBody RoleRegistrationRequest roleRegistrationRequest) {
+  public ResponseEntity<ResultResponse> addRole(
+          @RequestBody RoleRegistrationRequest roleRegistrationRequest) {
     // TODO: 어드민 권한이 있는 사람만 역할을 추가할 수 있도록 수정
     roleService.saveRole(roleRegistrationRequest);
     return ResponseEntity.ok(ResultResponse.of(ResultCode.ROLE_REGISTRATION_SUCCESS));
