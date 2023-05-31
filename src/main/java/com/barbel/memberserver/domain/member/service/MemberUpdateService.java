@@ -21,7 +21,7 @@ public class MemberUpdateService {
   private final MemberRepository memberRepository;
   private final S3Uploader s3Uploader;
   private final PasswordEncoder passwordEncoder;
-  private final String S3_DIR_NAME = "/member/profileImage/";
+  private final String S3_DIR_NAME = "/member/profileImage";
 
   @Transactional
   public void updateMemberCommon(
