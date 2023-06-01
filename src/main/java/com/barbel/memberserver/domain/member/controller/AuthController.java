@@ -12,7 +12,6 @@ import com.barbel.memberserver.global.jwt.dto.TokenInfo;
 import com.barbel.memberserver.global.jwt.exception.InvalidTokenException;
 import com.barbel.memberserver.global.result.ResultCode;
 import com.barbel.memberserver.global.result.ResultResponse;
-import com.barbel.memberserver.global.utill.MemberUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import javax.validation.Valid;
 import lombok.AccessLevel;
