@@ -14,6 +14,7 @@ import com.barbel.memberserver.global.jwt.dto.TokenInfo;
 import com.barbel.memberserver.global.jwt.exception.InvalidTokenException;
 import com.barbel.memberserver.global.utill.MemberUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class LoginService {
   private final MemberRepository memberRepository;
@@ -37,13 +39,15 @@ public class LoginService {
       throw new EmailDuplicatedException();
     }
     Member member = MemberUtil.memberRegistrationRequestToMember(memberRegistrationRequest);
-    member.setPassword(passwordEncoder.encode(member.getPassword()));
+    member.setPassword(passwordEncoder.encode(member.getPassword()).substring(8));
     memberRepository.save(member);
   }
   @Transactional
   public TokenInfo login(MemberLoginRequest memberLoginRequest) {
     UsernamePasswordAuthenticationToken authenticationToken =
         new UsernamePasswordAuthenticationToken(memberLoginRequest.getEmail(), memberLoginRequest.getPassword());
+    log.info("로그인 시도 | email : " + memberLoginRequest.getEmail() + " | password : " + memberLoginRequest.getPassword());
+    log.info("인코딩 된 패스워드 : " + passwordEncoder.encode(memberLoginRequest.getPassword()));
 
     try {
       Authentication authentication =
