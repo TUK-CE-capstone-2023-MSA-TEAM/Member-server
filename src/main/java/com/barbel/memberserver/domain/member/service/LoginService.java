@@ -41,7 +41,7 @@ public class LoginService {
   @Transactional
   public TokenInfo login(MemberLoginRequest memberLoginRequest) {
     UsernamePasswordAuthenticationToken authenticationToken =
-        new UsernamePasswordAuthenticationToken(memberLoginRequest.getEmail(), passwordEncoder.encode(memberLoginRequest.getPassword()));
+        new UsernamePasswordAuthenticationToken(memberLoginRequest.getEmail(), memberLoginRequest.getPassword());
 
     Authentication authentication =
         authenticationManagerBuilder.getObject().authenticate(authenticationToken);
