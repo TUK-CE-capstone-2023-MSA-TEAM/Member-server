@@ -39,11 +39,17 @@ public class LoginService {
       throw new EmailDuplicatedException();
     }
     Member member = MemberUtil.memberRegistrationRequestToMember(memberRegistrationRequest);
-    member.setPassword(passwordEncoder.encode(member.getPassword()).substring(8));
+//    member.setPassword(passwordEncoder.encode(member.getPassword()));
+    member.setPassword(member.getPassword());
     memberRepository.save(member);
   }
   @Transactional
   public TokenInfo login(MemberLoginRequest memberLoginRequest) {
+//    Member member = memberRepository.findByEmail(memberLoginRequest.getEmail())
+//        .orElseThrow(MemberNotFountException::new);
+//    if(!passwordEncoder.matches(memberLoginRequest.getPassword(), member.getPassword())) {
+//      throw new AuthenticationFailedException();
+//    }
     UsernamePasswordAuthenticationToken authenticationToken =
         new UsernamePasswordAuthenticationToken(memberLoginRequest.getEmail(), memberLoginRequest.getPassword());
     log.info("로그인 시도 | email : " + memberLoginRequest.getEmail() + " | password : " + memberLoginRequest.getPassword());
