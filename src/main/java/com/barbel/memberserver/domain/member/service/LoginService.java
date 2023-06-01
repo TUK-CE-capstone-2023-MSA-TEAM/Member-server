@@ -70,7 +70,7 @@ public class LoginService {
     }
 
     String userId = authentication.getName();
-    if(getRefreshToken(userId).getTokenValue() != refreshToken) {
+    if(!getRefreshToken(userId).getTokenValue().equals(refreshToken)) {
       throw new InvalidTokenException();
     }
 
