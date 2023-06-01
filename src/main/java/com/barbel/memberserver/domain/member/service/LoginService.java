@@ -3,6 +3,7 @@ package com.barbel.memberserver.domain.member.service;
 import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.dto.MemberLoginRequest;
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
+import com.barbel.memberserver.domain.member.exception.AuthenticationFailedException;
 import com.barbel.memberserver.domain.member.exception.EmailDuplicatedException;
 import com.barbel.memberserver.domain.member.exception.MemberNotFountException;
 import com.barbel.memberserver.domain.member.repository.MemberRepository;
@@ -13,6 +14,7 @@ import com.barbel.memberserver.global.jwt.dto.TokenInfo;
 import com.barbel.memberserver.global.jwt.exception.InvalidTokenException;
 import com.barbel.memberserver.global.utill.MemberUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -43,13 +45,17 @@ public class LoginService {
     UsernamePasswordAuthenticationToken authenticationToken =
         new UsernamePasswordAuthenticationToken(memberLoginRequest.getEmail(), memberLoginRequest.getPassword());
 
-    Authentication authentication =
-        authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+    try {
+      Authentication authentication =
+              authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-    TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
+      TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
 
-    refreshTokenRepository.save(new RefreshToken(memberLoginRequest.getEmail(), tokenInfo.getRefreshToken()));
-    return tokenInfo;
+      refreshTokenRepository.save(new RefreshToken(memberLoginRequest.getEmail(), tokenInfo.getRefreshToken()));
+      return tokenInfo;
+    } catch (BadCredentialsException e) {
+      throw new AuthenticationFailedException();
+    }
   }
 
   public boolean validateToken(String token) {
