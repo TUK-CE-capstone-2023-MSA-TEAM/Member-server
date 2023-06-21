@@ -1,11 +1,12 @@
 package com.barbel.memberserver.domain.member.service;
 
 import com.barbel.memberserver.domain.member.document.Member;
+import com.barbel.memberserver.domain.member.dto.MemberDetailResponse;
 import com.barbel.memberserver.domain.member.dto.MemberListResponse;
 import com.barbel.memberserver.domain.member.dto.MenteeDetailResponse;
 import com.barbel.memberserver.domain.member.dto.MentorDetailResponse;
 import com.barbel.memberserver.domain.member.exception.MemberListRequestFailedException;
-import com.barbel.memberserver.domain.member.exception.MemberNotFountException;
+import com.barbel.memberserver.domain.member.exception.MemberNotFoundException;
 import com.barbel.memberserver.domain.member.repository.MemberRepository;
 import com.barbel.memberserver.global.utill.MemberUtil;
 import lombok.AccessLevel;
@@ -19,13 +20,30 @@ import java.util.List;
 public class MemberService {
   private final MemberRepository memberRepository;
 
-  public Member findMemberByEmail(String email) {
-    return memberRepository.findByEmail(email).orElseThrow(MemberNotFountException::new);
+  public MemberDetailResponse findMemberByEmail(String email) {
+    Member member = memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
+    return new MemberDetailResponse(
+        member.getEmail(),
+        member.getNickname(),
+        member.getAge(),
+        member.getSex(),
+        member.getIntroduce(),
+        member.getProfileImageURL(),
+        member.getRole(),
+        member.getMajors(),
+        member.getInterests()
+    );
   }
 
-  public List<Member> findAll() {
+  public List<MemberListResponse> findAll() {
     try {
-      return memberRepository.findAll();
+      return memberRepository.findAll().stream().map(it ->
+          new MemberListResponse(
+              it.getEmail(),
+              it.getNickname(),
+              it.getProfileImageURL(),
+              it.getRole()
+          )).collect(java.util.stream.Collectors.toList());
     } catch (Exception e) {
       throw new MemberListRequestFailedException();
     }
@@ -33,7 +51,7 @@ public class MemberService {
 
   public void deleteMemberByEmail(String email) {
     if(!isDuplicatedEmail(email)) {
-      throw new MemberNotFountException();
+      throw new MemberNotFoundException();
     }
     memberRepository.deleteByEmail(email);
   }
@@ -41,7 +59,8 @@ public class MemberService {
   public List<MemberListResponse> findMembersByMajor(
       String major
   ) {
-    return memberRepository.findAllByMajorsContainsAndRole(major, "MENTOR")
+    return memberRepository.findAllByRoleAndMajorsContaining("MENTOR", major)
+//    return memberRepository.findAllByMajorsContaining(major)
         .stream().map(it ->
             new MemberListResponse(
                 it.getEmail(),
@@ -54,7 +73,7 @@ public class MemberService {
   public List<MemberListResponse> findMembersByInterest(
       String interest
   ) {
-    return memberRepository.findAllByInterestsContainsAndRole(interest, "MENTEE")
+    return memberRepository.findAllByRoleAndInterestsContaining("MENTEE", interest)
         .stream().map(it ->
             new MemberListResponse(
                 it.getEmail(),
@@ -64,19 +83,19 @@ public class MemberService {
             )).collect(java.util.stream.Collectors.toList());
   }
 
-  public MentorDetailResponse findMentorDetailByEmail(
-      String email
-  ) {
-    Member member = memberRepository.findByEmail(email).orElseThrow(MemberNotFountException::new);
-    return MemberUtil.MemberToMentorDetailResponse(member);
-  }
-
-  public MenteeDetailResponse findMenteeDetailByEmail(
-      String email
-  ) {
-    Member member = memberRepository.findByEmail(email).orElseThrow(MemberNotFountException::new);
-    return MemberUtil.MemberToMenteeDetailResponse(member);
-  }
+//  public MentorDetailResponse findMentorDetailByEmail(
+//      String email
+//  ) {
+//    Member member = memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
+//    return MemberUtil.MemberToMentorDetailResponse(member);
+//  }
+//
+//  public MenteeDetailResponse findMenteeDetailByEmail(
+//      String email
+//  ) {
+//    Member member = memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
+//    return MemberUtil.MemberToMenteeDetailResponse(member);
+//  }
 
   private Boolean isDuplicatedEmail(String email) {
     return memberRepository.existsById(email);
