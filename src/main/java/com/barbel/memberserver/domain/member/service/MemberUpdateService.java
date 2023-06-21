@@ -3,7 +3,7 @@ package com.barbel.memberserver.domain.member.service;
 import com.barbel.memberserver.domain.member.document.Member;
 import com.barbel.memberserver.domain.member.dto.MemberPasswordUpdateRequest;
 import com.barbel.memberserver.domain.member.dto.MemberUpdateRequest;
-import com.barbel.memberserver.domain.member.exception.MemberNotFountException;
+import com.barbel.memberserver.domain.member.exception.MemberNotFoundException;
 import com.barbel.memberserver.domain.member.exception.WrongPasswordException;
 import com.barbel.memberserver.domain.member.repository.MemberRepository;
 import com.barbel.memberserver.global.aws.S3Uploader;
@@ -28,7 +28,7 @@ public class MemberUpdateService {
       MemberUpdateRequest memberUpdateRequest
   ) {
     Member member = memberRepository.findById(memberUpdateRequest.getMemberId())
-        .orElseThrow(MemberNotFountException::new);
+        .orElseThrow(MemberNotFoundException::new);
     MemberUtil.updateMember(memberUpdateRequest, member);
     memberRepository.save(member);
   }
@@ -38,7 +38,7 @@ public class MemberUpdateService {
       MemberPasswordUpdateRequest memberPasswordUpdateRequest
   ) {
     Member member = memberRepository.findById(memberPasswordUpdateRequest.getMemberId())
-        .orElseThrow(MemberNotFountException::new);
+        .orElseThrow(MemberNotFoundException::new);
     if(!passwordEncoder.encode(member.getPassword()).equals(memberPasswordUpdateRequest.getPassword())) {
       throw new WrongPasswordException();
     }
@@ -52,7 +52,7 @@ public class MemberUpdateService {
       MultipartFile profileImage
   ) {
     Member member = memberRepository.findById(memberId)
-        .orElseThrow(MemberNotFountException::new);
+        .orElseThrow(MemberNotFoundException::new);
     member.setProfileImageURL(uploadProfileImage(profileImage));
     memberRepository.save(member);
   }
