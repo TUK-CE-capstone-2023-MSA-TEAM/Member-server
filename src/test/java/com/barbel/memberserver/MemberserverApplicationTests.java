@@ -1,6 +1,7 @@
 package com.barbel.memberserver;
 
 import com.barbel.memberserver.domain.member.document.Member;
+import com.barbel.memberserver.domain.member.dto.MemberDetailResponse;
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
 import com.barbel.memberserver.domain.member.service.LoginService;
 import com.barbel.memberserver.domain.member.service.MemberService;
@@ -32,7 +33,7 @@ class MemberserverApplicationTests {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    Member member1 = memberService.findMemberByEmail("rlandwnd555@naver.com");
+    MemberDetailResponse member1 = memberService.findMemberByEmail("rlandwnd555@naver.com");
     System.out.println(member1);
     assertThrows(IllegalArgumentException.class, () -> {
       memberService.findMemberByEmail("asdfasdf@gmail.com");
