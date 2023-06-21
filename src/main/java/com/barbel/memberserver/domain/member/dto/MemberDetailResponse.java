@@ -16,6 +16,6 @@ public class MemberDetailResponse {
   private String introduce;
   private String profileImageURL;
   private String role;
-  private List<String> interests;
   private List<String> majors;
+  private List<String> interests;
 }
