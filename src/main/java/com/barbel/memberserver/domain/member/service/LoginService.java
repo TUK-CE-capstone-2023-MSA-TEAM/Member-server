@@ -5,7 +5,7 @@ import com.barbel.memberserver.domain.member.dto.MemberLoginRequest;
 import com.barbel.memberserver.domain.member.dto.MemberRegistrationRequest;
 import com.barbel.memberserver.domain.member.exception.AuthenticationFailedException;
 import com.barbel.memberserver.domain.member.exception.EmailDuplicatedException;
-import com.barbel.memberserver.domain.member.exception.MemberNotFountException;
+import com.barbel.memberserver.domain.member.exception.MemberNotFoundException;
 import com.barbel.memberserver.domain.member.repository.MemberRepository;
 import com.barbel.memberserver.global.jwt.Provider.JwtTokenProvider;
 import com.barbel.memberserver.global.jwt.RefreshTokenRepository;
@@ -60,6 +60,7 @@ public class LoginService {
               authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
       TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
+      tokenInfo.setRole(memberRepository.findByEmail(memberLoginRequest.getEmail()).orElseThrow(MemberNotFoundException::new).getRole());
 
       refreshTokenRepository.save(new RefreshToken(memberLoginRequest.getEmail(), tokenInfo.getRefreshToken()));
       return tokenInfo;
@@ -96,7 +97,7 @@ public class LoginService {
   }
 
   private RefreshToken getRefreshToken(String userId) {
-    return refreshTokenRepository.findById(userId).orElseThrow(MemberNotFountException::new);
+    return refreshTokenRepository.findById(userId).orElseThrow(MemberNotFoundException::new);
   }
 
   private Boolean isDuplicatedEmail(String email) {
