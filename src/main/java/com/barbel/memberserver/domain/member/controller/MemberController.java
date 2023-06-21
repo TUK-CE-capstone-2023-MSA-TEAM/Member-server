@@ -3,6 +3,7 @@ package com.barbel.memberserver.domain.member.controller;
 import static com.barbel.memberserver.domain.member.controller.MemberController.MEMBER_API_URI;
 
 import com.barbel.memberserver.domain.member.document.Member;
+import com.barbel.memberserver.domain.member.dto.MemberDetailResponse;
 import com.barbel.memberserver.domain.member.service.MemberService;
 import com.barbel.memberserver.global.result.ResultCode;
 import com.barbel.memberserver.global.result.ResultResponse;
@@ -27,8 +28,17 @@ public class MemberController {
   public ResponseEntity<ResultResponse> getMemberInfo(
       @RequestHeader("Authorization") String token
   ) {
-    Member member = memberService.findMemberByEmail(SecurityUtil.getLoginedMemberId(token));
+    MemberDetailResponse member = memberService.findMemberByEmail(SecurityUtil.getLoginedMemberId(token));
     log.info(member.toString());
+    return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_FIND_SUCCESS, member));
+  }
+
+  @GetMapping("/{email}")
+  @Operation(summary = "특정 회원정보 조회")
+  public ResponseEntity<ResultResponse> getMemberInfoByEmail(
+      @PathVariable String email
+  ) {
+    MemberDetailResponse member = memberService.findMemberByEmail(email);
     return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_FIND_SUCCESS, member));
   }
 
@@ -62,19 +72,19 @@ public class MemberController {
     return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_LIST_REQUEST_SUCCESS, memberService.findMembersByInterest(interest)));
   }
 
-  @GetMapping("/detail/mentor/{email}")
-  @Operation(summary = "특정 멘토 디테일 정보 조회")
-  public ResponseEntity<ResultResponse> getMemberDetail(
-      @PathVariable String email
-  ) {
-    return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_FIND_SUCCESS, memberService.findMentorDetailByEmail(email)));
-  }
-
-  @GetMapping("/detail/mentee/{email}")
-  @Operation(summary = "특정 멘티 디테일 정보 조회")
-  public ResponseEntity<ResultResponse> getMemberDetailMentee(
-      @PathVariable String email
-  ) {
-    return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_FIND_SUCCESS, memberService.findMenteeDetailByEmail(email)));
-  }
+//  @GetMapping("/detail/mentor/{email}")
+//  @Operation(summary = "특정 멘토 디테일 정보 조회")
+//  public ResponseEntity<ResultResponse> getMemberDetail(
+//      @PathVariable String email
+//  ) {
+//    return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_FIND_SUCCESS, memberService.findMentorDetailByEmail(email)));
+//  }
+//
+//  @GetMapping("/detail/mentee/{email}")
+//  @Operation(summary = "특정 멘티 디테일 정보 조회")
+//  public ResponseEntity<ResultResponse> getMemberDetailMentee(
+//      @PathVariable String email
+//  ) {
+//    return ResponseEntity.ok(ResultResponse.of(ResultCode.MEMBER_FIND_SUCCESS, memberService.findMenteeDetailByEmail(email)));
+//  }
 }
