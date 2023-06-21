@@ -59,28 +59,42 @@ public class MemberService {
   public List<MemberListResponse> findMembersByMajor(
       String major
   ) {
-    return memberRepository.findAllByRoleAndMajorsContaining("MENTOR", major)
-//    return memberRepository.findAllByMajorsContaining(major)
-        .stream().map(it ->
+    return memberRepository.findAllByRole("MENTOR").stream().filter(it -> it.getMajors().contains(major))
+        .map(it ->
             new MemberListResponse(
                 it.getEmail(),
                 it.getNickname(),
                 it.getProfileImageURL(),
                 it.getRole()
             )).collect(java.util.stream.Collectors.toList());
+//    return memberRepository.findAllByMajorsContaining(major)
+//        .stream().map(it ->
+//            new MemberListResponse(
+//                it.getEmail(),
+//                it.getNickname(),
+//                it.getProfileImageURL(),
+//                it.getRole()
+//            )).collect(java.util.stream.Collectors.toList());
   }
 
   public List<MemberListResponse> findMembersByInterest(
       String interest
   ) {
-    return memberRepository.findAllByRoleAndInterestsContaining("MENTEE", interest)
-        .stream().map(it ->
+    return memberRepository.findAllByRole("MENTEE").stream().filter(it -> it.getInterests().contains(interest))
+        .map(it ->
             new MemberListResponse(
                 it.getEmail(),
                 it.getNickname(),
                 it.getProfileImageURL(),
                 it.getRole()
             )).collect(java.util.stream.Collectors.toList());
+//        .stream().map(it ->
+//            new MemberListResponse(
+//                it.getEmail(),
+//                it.getNickname(),
+//                it.getProfileImageURL(),
+//                it.getRole()
+//            )).collect(java.util.stream.Collectors.toList());
   }
 
 //  public MentorDetailResponse findMentorDetailByEmail(
