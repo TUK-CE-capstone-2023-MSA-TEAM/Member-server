@@ -61,7 +61,7 @@ public class Member extends BaseDocument implements UserDetails {
     this.interests = interests;
     this.majors = majors;
     this.role = role;
-    this.profileImageURL = "https://identitylessimgserver.s3.ap-northeast-2.amazonaws.com/member/base_profile.png";
+    this.profileImageURL = "https://identitylessbucket.s3.ap-northeast-2.amazonaws.com/member/base-profile-pic.jpeg";
   }
 
   @Override
